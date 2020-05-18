@@ -16,8 +16,8 @@ Scenario: Check if people could able to look into my details by exploring catego
 	Given the categories should be displayed on the homepage
 	When people click Programming & Tech on the category
 	And people click QA under the category of Programming & Tech
-	And people click my Info on a result of user's search
-	Then the details of my shared skill should be displayed
+	And people click my info on a result of user's search
+	Then the details of my shared skilll should be displayed
 
 Scenario: Check if people could able to look into my details by searching username
 	Given the categories should be displayed on the Homepage
@@ -45,23 +45,3 @@ Scenario Outline:  Check response when I make a spacing of the keyword
 		| keyword      |
 		| Test Analyst |
 		| TestAnalyst  |
-
-Scenario: Check response when search result is not found
-	Given I able to use search bar on the  webiste
-	When I search a thing which is not related to anything
-	Then it should be displayed the message No results found, please select a new category! on the website
-
-Scenario: Check possibility to input maximum number of text
-	Given I able to use search bar on the website
-	When I search as more than 1000words
-	Then it should be displayed an error page
-
-Scenario: Check possibility to input nothing on search bar
-	Given I able to use search bar on the Website
-	When I make a blank on the search bar
-	Then it should be displayed shared skill Info of all people
-
-Scenario: Check possibility to make only space without anywords
-	Given I able to use search bar on the  Website
-	When I make only space without anywords
-	Then it should be not searched

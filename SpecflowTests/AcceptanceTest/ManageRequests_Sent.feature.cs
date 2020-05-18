@@ -94,11 +94,11 @@ namespace SpecflowTests.AcceptanceTest
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 11
- testRunner.Given("I clicked Received Requests under manage requests Tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I clicked Sent Requests under manage requests Tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
  testRunner.When("I click a request post I have sent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 13
- testRunner.Then("the request should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("this request should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

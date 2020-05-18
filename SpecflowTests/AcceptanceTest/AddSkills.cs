@@ -10,7 +10,6 @@ using static SpecflowPages.CommonMethods;
 namespace SpecflowTests.AcceptanceTest
 {
     [Binding]
-    //Please add : Utils.Start behind of class name like that public class AddSharedSkill : Utils.Start before running
     public class AddSkills
     {
         public AddSkills()
@@ -67,6 +66,8 @@ namespace SpecflowTests.AcceptanceTest
         [Then(@"those skills (.*) should be displayed on my listings")]
         public void ThenThoseSkillsShouldBeDisplayedOnMyListings(string skill)
         {
+            int rowCount = Driver.driver.FindElements(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.tooltip-target.active > div > div.twelve.wide.column.scrollTable > div > table > thead > tr")).Count;
+
             try
             {
                 //Start the Reports
@@ -75,7 +76,7 @@ namespace SpecflowTests.AcceptanceTest
                 CommonMethods.test = CommonMethods.extent.StartTest("Add skills");
 
                 Thread.Sleep(1000);
-                for (int i = 1; i <= 100; i++)
+                for (int i = 1; i <= rowCount; i++)
                 {
                     string ExpectedName = skill;
                     string ActualName = Driver.driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[" + i + "]/tr/td[1]")).Text;

@@ -1,78 +1,92 @@
-﻿//using OpenQA.Selenium;
-//using OpenQA.Selenium.Interactions;
-//using OpenQA.Selenium.Support.PageObjects;
-//using SpecflowPages;
-//using System;
-//using System.Threading;
-//using TechTalk.SpecFlow;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
+using RelevantCodes.ExtentReports;
+//using SeleniumExtras.WaitHelpers;
+using SpecflowPages;
+using System;
+using System.Threading;
+using TechTalk.SpecFlow;
+using static NUnit.Core.NUnitFramework;
+using static SpecflowPages.CommonMethods;
 
-//namespace SpecflowTests.AcceptanceTest
-//{
-//    [Binding]
-//    //Please add : Utils.Start behind of class name like that public class LookIntoMyInfoBySearchingSkillName : Utils.Start before running
-//    public class ChangePassword : Utils.Start
-//    {
+namespace SpecflowTests.AcceptanceTest
+{
+    [Binding]
+    public class ChangePassword
+    {
 
-//        public ChangePassword()
-//        {
-//            PageFactory.InitElements(Driver.driver, this);
-//        }
+        #region Initialize Web Elements
 
-//        #region Initialize Web Elements
-//        //Move cursur on the dropdown to be visible
-//        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/div[1]/div[2]/div/span")]
-//        private IWebElement visibleDropdown { get; set; }
-//        //Click Change Password Button
-//        [FindsBy(How = How.XPath, Using = "//*[@id='account-profile-section']/div/div[1]/div[2]/div/span/div/a[2]")]
-//        private IWebElement changePassBtn { get; set; }
-//        //Enter Current Password
-//        [FindsBy(How = How.XPath, Using = "/html/body/div[4]/div/div[2]/form/div[1]/input")]
-//        private IWebElement currentPass { get; set; }
-//        //Enter New Password
-//        [FindsBy(How = How.XPath, Using = "/html/body/div[4]/div/div[2]/form/div[2]/input")]
-//        private IWebElement newPass { get; set; }
-//        //Enter Confirm Password
-//        [FindsBy(How = How.XPath, Using = "/html/body/div[4]/div/div[2]/form/div[3]/input")]
-//        private IWebElement confirmPass { get; set; }
-//        //Click Save Button
-//        [FindsBy(How = How.XPath, Using = "/html/body/div[4]/div/div[2]/form/div[4]/button")]
-//        private IWebElement saveBtn { get; set; }
-//        #endregion
+        IWebElement visibleDropdown = Driver.driver.FindElement(By.XPath("//span[contains(@class,'item ui dropdown link')]"));
+        IWebElement changePassBtn = Driver.driver.FindElement(By.XPath("//a[contains(text(),'Change Password')]"));
+        
+        WebDriverWait wait = new WebDriverWait(Driver.driver, TimeSpan.FromSeconds(10));
+        Actions action = new Actions(Driver.driver);
+        #endregion
 
-//        [Given(@"I clicked Hi username dropdown")]
-//        public void GivenIClickedHiUsernameDropdown()
-//        {
-//            //Wait
-//            Thread.Sleep(1000);
+        [Given(@"I clicked Hi username dropdown")]
+        public void GivenIClickedHiUsernameDropdown()
+        {
+            wait.Until(ExpectedConditions.ElementExists(By.XPath("//span[contains(@class,'item ui dropdown link')]")));
+            //Move cursor on the dropdown to be visible
+            action.MoveToElement(visibleDropdown).Perform();
+        }
 
-//            //Move cursor on the dropdown to be visible
-//            visibleDropdown.Click();
-//        }
+        [Given(@"I clicked change password button")]
+        public void GivenIClickedChangePasswordButton()
+        {
+            //Click change password button
+            wait.Until(ExpectedConditions.ElementToBeClickable(changePassBtn));
+            changePassBtn.Click();
 
-//        [Given(@"I clicked change password button")]
-//        public void GivenIClickedChangePasswordButton()
-//        {
-//            //Click change password button
-//            Thread.Sleep(1000);
-//            changePassBtn.Click();
+        }
 
-//        }
+        [When(@"I enter new password, current password and confirm password correctly")]
+        public void WhenIEnterNewPasswordCurrentPasswordAndConfirmPasswordCorrectly()
+        {
+            IWebElement currentPass = Driver.driver.FindElement(By.XPath("//input[contains(@name,'oldPassword')]"));
+            IWebElement newPass = Driver.driver.FindElement(By.XPath("//input[contains(@name,'newPassword')]"));
+            IWebElement confirmPass = Driver.driver.FindElement(By.XPath("//input[contains(@name,'confirmPassword')]"));
+            IWebElement saveBtn = Driver.driver.FindElement(By.XPath("(//button[contains(.,'Save')])[2]"));
 
-//        [When(@"I enter new password, current password and confirm password correctly")]
-//        public void WhenIEnterNewPasswordCurrentPasswordAndConfirmPasswordCorrectly()
-//        {
-//            //Enter current password, new password and confirm password
-//            Thread.Sleep(1000);
-//            currentPass.SendKeys("Test@123");
-//            newPass.SendKeys("Test@1234");
-//            confirmPass.SendKeys("Test@1234");
-//            saveBtn.Click();
-//        }
+            //Enter current password, new password and confirm password
+            wait.Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[4]/div/div[2]/form/div[1]/input")));
+            currentPass.SendKeys("Test@123");
+            newPass.SendKeys("Test@1234");
+            confirmPass.SendKeys("Test@1234");
+            saveBtn.Click();
+        }
 
-//        [Then(@"the password should be changed as new password I have entered")]
-//        public void ThenThePasswordShouldBeChangedAsNewPasswordIHaveEntered()
-//        {
-//            ScenarioContext.Current.Pending();
-//        }
-//    }
-//}
+        [Then(@"the password should be changed as new password I have entered")]
+        public void ThenThePasswordShouldBeChangedAsNewPasswordIHaveEntered()
+        {
+            IWebElement validateChanged = Driver.driver.FindElement(By.XPath("//div[@class='ns-box-inner'][contains(.,'Password Changed Successfully')]"));
+
+            try
+            {
+                //Start the Reports
+                Thread.Sleep(2000);
+                CommonMethods.ExtentReports();
+                CommonMethods.test = CommonMethods.extent.StartTest("Change password");
+
+                wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@class='ns-box-inner'][contains(.,'Password Changed Successfully')]")));
+                string expectedMsg = "Password Changed Successfully";
+                string actualMsg = validateChanged.Text;
+                Thread.Sleep(1000);
+
+                if(expectedMsg == actualMsg)
+                {
+                    CommonMethods.test.Log(LogStatus.Pass, "Test Passed, Added Skills Successfully");
+                    SaveScreenShotClass.SaveScreenshot(Driver.driver, "SkillsAdded");
+                }
+            }
+            catch (Exception e)
+            {
+                CommonMethods.test.Log(LogStatus.Fail, "Test Failed", e.Message);
+            }
+
+        }
+    }
+}

@@ -65,6 +65,12 @@
       <HintPath>..\packages\ExtentReports.2.41.0\lib\RelevantCodes.ExtentReports.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SeleniumExtras.PageObjects, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.PageObjects.3.11.0\lib\net45\SeleniumExtras.PageObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="SeleniumExtras.WaitHelpers, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -114,6 +120,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ChatHistory.feature</DependentUpon>
     </Compile>
+    <Compile Include="AcceptanceTest\DeleteCertificate.cs" />
+    <Compile Include="AcceptanceTest\DeleteEducation.cs" />
+    <Compile Include="AcceptanceTest\DeleteLanguage.cs" />
+    <Compile Include="AcceptanceTest\DeleteSkill.cs" />
+    <Compile Include="AcceptanceTest\EditCertificate.cs" />
+    <Compile Include="AcceptanceTest\EditEducation.cs" />
+    <Compile Include="AcceptanceTest\EditLanguage.cs" />
+    <Compile Include="AcceptanceTest\EditSharedSkill.cs" />
+    <Compile Include="AcceptanceTest\EditSkill.cs" />
+    <Compile Include="AcceptanceTest\EnterDescription.cs" />
+    <Compile Include="AcceptanceTest\LookIntoMyInfoBySearchingCategory.cs" />
     <Compile Include="AcceptanceTest\LookIntoMyInfoBySearchingSkillName.cs" />
     <Compile Include="AcceptanceTest\ManageRequests_Sent.feature.cs">
       <AutoGen>True</AutoGen>
@@ -155,6 +172,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProfileDescription.feature</DependentUpon>
     </Compile>
+    <Compile Include="AcceptanceTest\ReceivedRequests.cs" />
+    <Compile Include="AcceptanceTest\Registration.cs" />
+    <Compile Include="AcceptanceTest\Registration.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Registration.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceTest\SearchSharedSkill.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,11 +187,9 @@
     <Compile Include="AcceptanceTest\AddCertifications.cs" />
     <Compile Include="AcceptanceTest\AddEducations.cs" />
     <Compile Include="AcceptanceTest\AddSkills.cs" />
-    <Compile Include="AcceptanceTest\SetLocation_Availability_Hours_EarnTarget.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SetLocation_Availability_Hours_EarnTarget.feature</DependentUpon>
-    </Compile>
+    <Compile Include="AcceptanceTest\SetAvailability.cs" />
+    <Compile Include="AcceptanceTest\SetEarnTarget.cs" />
+    <Compile Include="AcceptanceTest\SetHours.cs" />
     <Compile Include="AcceptanceTest\SkillTab.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -188,12 +210,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CertificationTab.feature</DependentUpon>
     </Compile>
+    <Compile Include="AcceptanceTest\DeleteSharedSkill.cs" />
+    <Compile Include="AcceptanceTest\Profile_Details.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Profile_Details.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AcceptanceTest\LanguageTab.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LanguageTab.feature</DependentUpon>
     </Compile>
+    <Compile Include="AcceptanceTest\SentRequests.cs" />
     <Compile Include="Utils\Start.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,13 +270,13 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ProfileDescription.feature.cs</LastGenOutput>
     </None>
+    <None Include="AcceptanceTest\Registration.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Registration.feature.cs</LastGenOutput>
+    </None>
     <None Include="AcceptanceTest\SearchSharedSkill.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SearchSharedSkill.feature.cs</LastGenOutput>
-    </None>
-    <None Include="AcceptanceTest\SetLocation_Availability_Hours_EarnTarget.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SetLocation_Availability_Hours_EarnTarget.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceTest\SkillTab.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -265,6 +294,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CertificationTab.feature.cs</LastGenOutput>
     </None>
+    <None Include="AcceptanceTest\Profile_Details.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Profile_Details.feature.cs</LastGenOutput>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="AcceptanceTest\LanguageTab.feature">
@@ -277,12 +310,6 @@
       <Project>{92827FF8-9AF9-4D71-8C62-3BEDFC0DEEBB}</Project>
       <Name>SpecflowPages</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\packages\WebDriver.ChromeDriver.win32.2.41.0\content\chromedriver.exe">
-      <Link>chromedriver.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

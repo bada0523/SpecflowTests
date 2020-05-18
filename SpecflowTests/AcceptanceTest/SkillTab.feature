@@ -14,44 +14,18 @@ Scenario Outline: Check if user could able to add skills
 
 	Examples:
 		| skill    |
-		| Selenium |
+		| Automation Testing |
 		| JIRA     |
 		| Cucumber |
 
 #Edit skill
 Scenario: Check if user could able to edit a skill
-	Given I clicked the pencil icon on my listings under Profile page
-	When I edit a language
+	Given The skill have added should be displayed on skill list
+	When I edit a skill
 	Then that updated skill should be displayed on my listings
 
 #delete skill
 Scenario: Check if user could able to delete a skill
-	Given the skill which I have added should be displayed on my listings under Profile page
-	When I click the X icon on my listings
+	Given the skill which I have added should be displayed on skill listings
+	When I click the X icon on skill listings
 	Then that skill should be deleted from my listings
-
-#Negative testing for text field skill
-Scenario: Check possibility to make a blank on text field
-	Given I clicked on the Skills tab under profile Page
-	When I make a blank on the text field
-	Then it should be not added and displayed alert message
-
-Scenario: Check possibility to input maximum number of text
-	Given I clicked on the Skills tab under Profile Page
-	When I entered 100 words on the text field
-	Then it shoud be not added and displayed alert message
-
-Scenario: Check possibility to input different language on the text field
-	Given I clicked on the Skills tab under  profile page
-	When I enter Korean words on the field
-	Then it should be not added and displayed alert message
-
-Scenario: Check possibility to copy and paste on the text field
-	Given I clicked on the Skills tab under  Profile page
-	When I copy words and paste on the text field
-	Then it should be added
-
-Scenario: Check Possibility to input uppercase and lowercase together on the text field
-	Given I clicked on the Skills tab under  profile Page
-	When I enter uppercase and lowercase on the text field
-	Then it should be added

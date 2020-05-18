@@ -18,14 +18,14 @@ namespace SpecflowTests.AcceptanceTest
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.3.2.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class Seller_ChangeToNewPasswordWhatIWantFeature
+    public partial class User_SignUpNewAccountFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
         private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _testContext;
         
-#line 1 "ChangePassword.feature"
+#line 1 "Registration.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -44,8 +44,9 @@ namespace SpecflowTests.AcceptanceTest
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Seller -> Change to new password what I want", "Priority: Minor\r\nAs a Seller\r\nI want the feature to Change the password\r\nSo that\r" +
-                    "\nSeller can change the password what I want", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "User -> Sign up new account", "Priority: Major\r\nAs a User\r\nI want the feature to sign up new account for SkillSw" +
+                    "ap website\r\nSo that\r\nI can use the features of website to share some skills with" +
+                    " the other users", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -60,9 +61,9 @@ namespace SpecflowTests.AcceptanceTest
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Seller -> Change to new password what I want")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "User -> Sign up new account")))
             {
-                global::SpecflowTests.AcceptanceTest.Seller_ChangeToNewPasswordWhatIWantFeature.FeatureSetup(null);
+                global::SpecflowTests.AcceptanceTest.User_SignUpNewAccountFeature.FeatureSetup(null);
             }
         }
         
@@ -83,32 +84,22 @@ namespace SpecflowTests.AcceptanceTest
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-#line 8
-#line 9
- testRunner.Given("I clicked Hi username dropdown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-        }
-        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Check if the user is able to change the password")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Seller -> Change to new password what I want")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Check if the user is able to sign up")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "User -> Sign up new account")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("mytag")]
-        public virtual void CheckIfTheUserIsAbleToChangeThePassword()
+        public virtual void CheckIfTheUserIsAbleToSignUp()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Check if the user is able to change the password", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Check if the user is able to sign up", new string[] {
                         "mytag"});
-#line 13
+#line 9
 this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 14
- testRunner.And("I clicked change password button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 15
- testRunner.When("I enter new password, current password and confirm password correctly", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
- testRunner.Then("the password should be changed as new password I have entered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 10
+ testRunner.Given("I clicked join button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 11
+ testRunner.When("I enter a credential", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 12
+ testRunner.Then("that account should be registered", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

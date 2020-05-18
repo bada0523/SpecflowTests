@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace SpecflowPages
 
             //Maximise the window
             driver.Manage().Window.Maximize();
-        }
+        }   
 
         public static string BaseUrl
         {
@@ -45,6 +46,12 @@ namespace SpecflowPages
         {
             driver.Close();
         }
+
+        //Explicit Wait
+        //public static void ExcipliWait()
+        //{
+        //    wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+        //}
 
     }
 }

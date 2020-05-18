@@ -1,29 +1,29 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
-using RelevantCodes.ExtentReports;
 using SpecflowPages;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using TechTalk.SpecFlow;
-using static SpecflowPages.CommonMethods;
 
 namespace SpecflowTests.AcceptanceTest
 {
     [Binding]
-    public class AddSharedSkill
+    public class EditSharedSkill
     {
-        public AddSharedSkill()
+        public EditSharedSkill()
         {
             PageFactory.InitElements(Driver.driver, this);
         }
 
         #region Initialize Web Elements
-        //Click ShareSkill Button
-        [FindsBy(How = How.XPath, Using = "//a[contains(.,'Share Skill')]")]
-        private IWebElement shareSkillBtn { get; set; }
+        //Click Education Tab
+        [FindsBy(How = How.XPath, Using = "//a[contains(.,'Manage Listings')]")]
+        private IWebElement ManageLSTab { get; set; }
+        //Click Add New Button
         //Add Title
-        [FindsBy(How = How.XPath, Using = "//input[contains(@name,'title')]")]
+        [FindsBy(How = How.XPath, Using = "(//input[contains(@type,'text')])[2]")]
         private IWebElement addTitle { get; set; }
         //Add Description
         [FindsBy(How = How.XPath, Using = "//textarea[contains(@name,'description')]")]
@@ -47,7 +47,7 @@ namespace SpecflowTests.AcceptanceTest
         [FindsBy(How = How.XPath, Using = "(//input[contains(@name,'locationType')])[1]")]
         private IWebElement locationType { get; set; }
         //Select Available Days - Start Date
-        [FindsBy(How = How.XPath, Using = "(//input[contains(@type,'date')])[1]")]
+        [FindsBy(How = How.CssSelector, Using = "#service-listing-section > div.ui.container > div > form > div:nth-child(7) > div.twelve.wide.column > div > div:nth-child(1) > div:nth-child(2) > input[type='date']")]
         private IWebElement startDate { get; set; }
         //Select Available Days - End Date
         [FindsBy(How = How.CssSelector, Using = "#service-listing-section > div.ui.container > div > form > div:nth-child(7) > div.twelve.wide.column > div > div:nth-child(1) > div:nth-child(4) > input[type='date']")]
@@ -68,29 +68,51 @@ namespace SpecflowTests.AcceptanceTest
         [FindsBy(How = How.XPath, Using = "(//input[contains(@name,'isActive')])[1]")]
         private IWebElement activeBtn { get; set; }
         //Click Save Button
-        [FindsBy(How = How.XPath, Using = "(//input[contains(@type,'button')])[1]")]
+        [FindsBy(How = How.XPath, Using = "(//input[@type='button'])[1]")]
         private IWebElement saveBtn { get; set; }
+        [FindsBy(How = How.XPath, Using = "//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr")]
+        IList<IWebElement> Count { get; set; }
+        //Explicit Wait
         WebDriverWait wait = new WebDriverWait(Driver.driver, TimeSpan.FromSeconds(10));
         #endregion
 
-
-        [Given(@"I clicked on the button Share Skill under Profile page")]
-        public void GivenIClickedOnTheButtonShareSkillUnderProfilePage()
+        [Given(@"I clicked on the Manage Listings tab under Profile page")]
+        public void GivenIClickedOnTheManageListingsTabUnderProfilePage()
         {
-            //Wait
-            wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[2]/a")));
-
-            // Click the button Share Skill
-            shareSkillBtn.Click();
+            Thread.Sleep(1500);
+            ManageLSTab.Click();
         }
 
-        [When(@"I add a new shared skill")]
-        public void WhenIAddANewSharedSkill()
+        [When(@"I clicked the pencil icon on my listings")]
+        public void WhenIClickedThePencilIconOnMyListings()
         {
+            int rowCount = Count.Count;
+            Console.WriteLine(rowCount);
+            for (int i = 1; i <= rowCount; i++)
+            {
+                string expectedName = "Test Analyst";
+                string actualName = Driver.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr[" + i + "]/td[3]")).Text;
+                IWebElement editBtn = Driver.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr[" + i + "]/td[8]/i[2]"));
+                if (expectedName == actualName)
+                {
+                    editBtn.Click();
+                    break;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        [When(@"I edit a shared skill")]
+        public void WhenIEditASharedSkill()
+        {
+            Console.WriteLine("pass");
             //Wait
             wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input")));
             //Add Title
-            addTitle.SendKeys("Test Analyst");
+            addTitle.SendKeys("Edited SharedSkill");
             //Enter Description
             addDescription.SendKeys("I want to skill trade");
             //Click on Category
@@ -121,53 +143,24 @@ namespace SpecflowTests.AcceptanceTest
             //Add Skill-Exchange
             skillExchange.SendKeys("#JIRA");
             enterKeySK.SendKeys(Keys.Enter);
-            //Upload Work Samples
             //*****It suddenly does not support from website*****
+            //Upload Work Samples
             //workSampleBtn.Click();
             //Thread.Sleep(1000);
-            //Please, make a txt file and change the path for you 
-            //System.Windows.Forms.SendKeys.SendWait(@"C:\Users\HarrisVicky\Desktop\notitle.txt");
+            ////Please, make a txt file and change the path for you 
+            //System.Windows.Forms.SendKeys.SendWait(@"C:\Users\HarrisVicky\Desktop\fortesting.txt");
             //System.Windows.Forms.SendKeys.SendWait("{Enter}");
             //---------------------------------------------------------------------
             //Choose Active
             activeBtn.Click();
             //Click the button Save
             saveBtn.Click();
-
-
-
         }
 
-        [Then(@"the lists of shared skill you have been posting should be displayed on my listings")]
-        public void ThenTheListsOfSharedSkillYouHaveBeenPostingShouldBeDisplayedOnMyListings()
+        [Then(@"that updated shared skill should be displayed  on my listings")]
+        public void ThenThatUpdatedSharedSkillShouldBeDisplayedOnMyListings()
         {
-            wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id='service-listing-section']/section[1]/div/a[3]")));
-            Driver.driver.FindElement(By.XPath("//*[@id='service-listing-section']/section[1]/div/a[3]")).Click();
-            try
-            {
-                //Start the Reports
-                CommonMethods.ExtentReports();
-                Thread.Sleep(1000);
-                CommonMethods.test = CommonMethods.extent.StartTest("Add a shared skill");
-
-                Thread.Sleep(1000);
-                string ExpectedValue = "Test Analyst";
-                string ActualValue = Driver.driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/table/tbody/tr/td[3]")).Text;
-                Thread.Sleep(1000);
-                if (ExpectedValue == ActualValue)
-                {
-                    CommonMethods.test.Log(LogStatus.Pass, "Test Passed, Added a shared skill Successfully");
-                    SaveScreenShotClass.SaveScreenshot(Driver.driver, "SharedSkillAdded");
-                }
-
-                else
-                    CommonMethods.test.Log(LogStatus.Fail, "Test Failed");
-
-            }
-            catch (Exception e)
-            {
-                CommonMethods.test.Log(LogStatus.Fail, "Test Failed", e.Message);
-            }
+            Console.WriteLine("Test");
         }
     }
 }

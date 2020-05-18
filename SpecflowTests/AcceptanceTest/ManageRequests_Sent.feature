@@ -8,6 +8,6 @@ I can check sent requests
 @mytag
 #Check sent requests
 Scenario: Check if the user is able to Check the Sent request
-	Given I clicked Received Requests under manage requests Tab
+	Given I clicked Sent Requests under manage requests Tab
 	When I click a request post I have sent
-	Then the request should be displayed
+	Then this request should be displayed
